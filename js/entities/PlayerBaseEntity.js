@@ -10,7 +10,6 @@ game.PlayerBaseEntity = me.Entity.extend({
                     return (new me.Rect(0, 0, 100, 70)).toPolygon();
                 }
             }]);
-
         this.broken = false;
         this.health = game.data.playerBaseHealth;
         this.alwaysUpate = true;
@@ -24,6 +23,7 @@ game.PlayerBaseEntity = me.Entity.extend({
     update: function(delta) {
         if (this.health <= 0) {
             this.broken = true;
+            game.data.win = false;
             this.renderable.setCurrentAnimation("broken");
         }
         this.body.update(delta);
