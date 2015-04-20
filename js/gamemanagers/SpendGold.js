@@ -49,7 +49,8 @@ game.SpendGold = Object.extend({
                     this.updateWhenPaused = true;
                     this.alwaysUpdate = true;
                     },
-                    
+            
+            
                     draw: function(renderer){
                         this.font.draw(renderer.getContext(), "PRESS F1-F6 TO BUY, B TO EXIT. Current Gold: " + game.data.gold, this.pos.x, this.pos.y);
                         this.font.draw(renderer.getContext(), "Skill 1: Increases Damage. Current Level: " + game.data.skill1 + "Cost: " + ((game.data.skill1+1)*10) , this.pos.x, this.pos.y+ 40);
@@ -58,7 +59,6 @@ game.SpendGold = Object.extend({
                         this.font.draw(renderer.getContext(), "Q Ability: Speed Burst. Current Level: " + game.data.ability1 + "Cost: " + ((game.data.ability4+1)*10), this.pos.x, this.pos.y + 160);
                         this.font.draw(renderer.getContext(), "W Ability: Eat Your Creep For Health: " + game.data.ability2 + "Cost: " + ((game.data.ability5+1)*10), this.pos.x, this.pos.y + 200);
                         this.font.draw(renderer.getContext(), "E Ability: Throw Your Spear: " + game.data.ability3 + "Cost: " + ((game.data.ability6+1)*10), this.pos.x, this.pos.y + 240);
-
                     }
                       
             }));
@@ -146,8 +146,8 @@ game.SpendGold = Object.extend({
        game.data.gold -= ((game.data.ability3 +1)* 10);
        game.data.ability3 += 1; 
     }       
-   
-       
-  }
-});
+}
 
+
+  
+});
