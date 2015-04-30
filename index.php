@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<!--Database setting on PHP -->
+<!--Database setting on PHP-->
 <?php
 require_once("php/controller/create-db.php");
 ?>
@@ -103,7 +103,7 @@ require_once("php/controller/create-db.php");
             });
             //Register Button
             $("#register").bind("click", function() {
-                $ajax({
+                $.ajax({
                     type: "POST",
                     url: "php/controller/create-user.php",
                     data: {
@@ -125,7 +125,7 @@ require_once("php/controller/create-db.php");
             });
             // Load Button
             $("#load").bind("click", function() {
-                $ajax({
+                $.ajax({
                     type: "POST",
                     url: "php/controller/login-user.php",
                     data: {

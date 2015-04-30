@@ -1,3 +1,4 @@
+//Settings for spend gold
 game.SpendGold = Object.extend({
     init: function(x, y, settings) {
         this.now = new Date().getTime();
@@ -105,7 +106,7 @@ game.SpendGold = Object.extend({
         }
     },
     // the cost of the powers
-    checkcost: function(skill) {
+    checkCost: function(skill) {
         if (skill === 1 && (game.data.gold >= ((game.data.skill1 + 1) * 10))) {
             return true;
         } else if (skill === 2 && (game.data.gold >= ((game.data.skill2 + 1) * 10))) {
