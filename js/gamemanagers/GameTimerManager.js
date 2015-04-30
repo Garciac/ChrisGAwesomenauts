@@ -6,22 +6,22 @@ game.GameTimerManager = Object.extend({
         this.alwaysUpdate = true;
     },
     update: function() {
-        this.now = new Date().getTime();        
+        this.now = new Date().getTime();
         this.goldTimerCheck();
         this.creepTimerCheck();
-        
+
         return true;
     },
     //settings for gold
-    goldTimerCheck: function(){
-        if (Math.round(this.now / 1000) %20 === 0 && (this.now - this.lastCreep >= 1000)) {
-            game.data.gold += (game.data.exp1+1);
+    goldTimerCheck: function() {
+        if (Math.round(this.now / 1000) % 20 === 0 && (this.now - this.lastCreep >= 1000)) {
+            game.data.gold += (game.data.exp1 + 1);
             console.log("Current gold: " + game.data.gold);
         }
-    },   
+    },
     //settings for creep
-    creepTimerCheck: function(){
-         if (Math.round(this.now / 1000) %10 === 0 && (this.now - this.lastCreep >= 1000)) {
+    creepTimerCheck: function() {
+        if (Math.round(this.now / 1000) % 10 === 0 && (this.now - this.lastCreep >= 1000)) {
             this.lastCreep = this.now;
             var creep = me.pool.pull("EnemyCreep", 1000, 0, {});
             me.game.world.addChild(creep, 5);

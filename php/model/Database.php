@@ -2,7 +2,7 @@
 
 class Database {
 
-//functions for to the blog to work
+//functions for to the awesomenauts to work
     private $connection;
     private $host;
     private $username;
