@@ -40,7 +40,7 @@ game.SpendGold = Object.extend({
         me.input.bindKey(me.input.KEY.F6, "F6", true);
         this.setBuyText();
     },
-    
+    //Settings for what to buy with your gold
     setBuyText: function(){
         game.data.buytext = new(me.Renderable.extend({
                     init: function(){
@@ -64,7 +64,7 @@ game.SpendGold = Object.extend({
             }));
              me.game.world.addChild(game.data.buytext, 35);
     },
-    
+    //settings for buying and keys 
     stopBuying: function(){
         this.buying = false;
         me.state.resume(me.state.PLAY);
@@ -78,7 +78,7 @@ game.SpendGold = Object.extend({
         me.input.bindKey(me.input.KEY.F6, "F6", true);
         me.game.world.removeChild(game.data.buytext);
     },
-    
+    //setting when you make a purchase
     checkBuyKeys: function() {
         if(me.input.isKeyPressed("F1")){
            if(this.checkCost(1)){
@@ -106,7 +106,7 @@ game.SpendGold = Object.extend({
            }   
         }
     },
-    
+    // the cost of the powers
     checkcost: function(skill){
         if(skill===1 && (game.data.gold >= ((game.data.skill1+1)*10))){
             return true;
@@ -124,7 +124,7 @@ game.SpendGold = Object.extend({
             return false;
         }    
    },
-   
+   //settings for skills and abilities
    makePurchase: function(skill){
     if(skill === 1){
        game.data.gold -= ((game.data.skill1 +1)* 10);

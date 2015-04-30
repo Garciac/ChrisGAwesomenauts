@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<!--Database setting on PHP -->
 <?php
      require_once("php/controller/create-db.php");
 ?>
@@ -19,6 +20,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         </head>
 	<body>
+            <!--Buttons for User Name, Password, Register, Load, and Main Menu -->
 		<!-- Canvas placeholder -->
 		<div id="screen"></div>
 
@@ -60,6 +62,7 @@
 		<script type="text/javascript" src="js/entities/HUD.js"></script>
                 <script type="text/javascript" src="js/entities/SpearThrow.js"></script>
                 <script type="text/javascript" src="js/entities/MiniMap.js"></script>
+                <script type="text/javascript" src="js/entities/MiniPlayerLocation.js"></script>
 		<script type="text/javascript" src="js/screens/title.js"></script>
                 <script type="text/javascript" src="js/screens/play.js"></script>
                 <script type="text/javascript" src="js/screens/spendExp.js"></script>
@@ -94,9 +97,11 @@
 		</script>
                 
                 <script>
+                 //Main menu button
                 $("#mainmenu").bind("click", function(){
                     me.state.change(me.state.MENU);
                 });   
+                //Register Button
                 $("#register").bind("click", function(){
                     $ajax({
                         type: "POST",
@@ -118,6 +123,7 @@
                             alert("Fail");
                     });
                 });       
+                // Load Button
                 $("#load").bind("click", function(){
                     $ajax({
                         type: "POST",

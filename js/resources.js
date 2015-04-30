@@ -1,5 +1,5 @@
 game.resources = [
-
+//levels for graphics like pictures and icons
 	/* Graphics. 
 	 * @example
 	 * {name: "example", type:"image", src: "data/img/example.png"},
@@ -21,7 +21,7 @@ game.resources = [
 	 * @example
 	 * {name: "example_tps", type: "tps", src: "data/img/example_tps.json"},
 	 */
-		
+	//levels for maps	
 	/* Maps. 
 	 * @example
 	 * {name: "example01", type: "tmx", src: "data/map/example01.tmx"},

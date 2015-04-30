@@ -20,9 +20,9 @@ game.PlayScreen = me.ScreenObject.extend({
                 var spendGold = me.pool.pull("SpendGold", 0 , 0 , {});
                 me.game.world.addChild(spendGold, 0);
                 
-                game.data.minimap = me.pool.pull("minimap", 10, 10, {});
-                me.game.world.addChild(game.data.minimap, 30);
-                
+                game.data.minimap = me.pool.pull("MiniMap", 10, 10, {});
+                me.game.world.addChild(game.data.MiniMap, 30);
+                //keys for each job pressed
                 me.input.bindKey(me.input.KEY.B, "buy");
                 me.input.bindKey(me.input.KEY.Q, "skill1");
                 me.input.bindKey(me.input.KEY.W, "skill2");
@@ -48,7 +48,9 @@ game.PlayScreen = me.ScreenObject.extend({
         
         resetPlayer: function(x, y){
             game.data.player = me.pool.pull("player", 0, 420, {});
-                me.game.world.addChild(game.data.player, 5);
+            me.game.world.addChild(game.data.player, 5);
+            game.data.miniPlayer = me.pool.pull("miniplayer", 10 ,10 ,{});
+            me.game.world.addChild(game.data.miniPlayer, 31);
         }
         
 });

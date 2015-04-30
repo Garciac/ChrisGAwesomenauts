@@ -13,6 +13,7 @@ game.PlayerEntity = me.Entity.extend({
         this.renderable.setCurrentAnimation("idle");
     },
     
+    //settings for player
     setSuper: function(x, y) {
         this._super(me.Entity, 'init', [x, y, {
                 image: "player",
@@ -71,7 +72,7 @@ game.PlayerEntity = me.Entity.extend({
         }
         return false;
     },
-    
+    //Settings for which directions the character can go
     checkKeyPressesAndMove: function() {
         if (me.input.isKeyPressed("right")) {
             this.moveRight();
@@ -107,7 +108,7 @@ game.PlayerEntity = me.Entity.extend({
         this.body.jumping = true;
         this.body.vel.y -=this.body.accel.y * me.timer.tick;
     },
-    
+    //keys for options the character can do
     checkAbilityKeys: function(){
        if(me.input.isKeyPressed("skill1")){
            //this.speedBurst();
@@ -118,7 +119,7 @@ game.PlayerEntity = me.Entity.extend({
            this.throwSpear();
        }
     },
-    
+    //setting when the character throws his spear
     throwSpear: function(){
         if((this.now-this.lastSpear) >= game.data.spearTimer*1000 && game.data.ability3 > 0){
         this.lastSpear = this.now;
@@ -126,7 +127,7 @@ game.PlayerEntity = me.Entity.extend({
         me.game.world.addChild(spear, 10);
     }
         },
-    
+    // animations of the characters actions
     setAnimation: function(){
         if (this.attacking) {
             if (!this.renderable.isCurrentAnimation("attack")){
@@ -147,7 +148,7 @@ game.PlayerEntity = me.Entity.extend({
             this.renderable.setCurrentAnimation("idle");
         }
     },
-      
+    //settings for when the character gets killed
     loseHealth: function(damage) {
         this.health = this.health - damage;
     },
@@ -214,7 +215,7 @@ game.PlayerEntity = me.Entity.extend({
         }
         return false;
     },
-    
+    //setting for points when you kill a creep
     hitCreep: function(response){
          if (response.b.health <= game.data.playerAttack) {
                 //adds one gold for a creep kill

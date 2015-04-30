@@ -17,7 +17,7 @@ game.SpendExp = me.ScreenObject.extend({
                     this._super(me.Renderable, 'init', [10, 10, 300, 50]);
                     this.font = new me.Font("Arial", 46, "white");
                     },
-                    
+                    //Actions for F1 and F4
                     draw: function(renderer){
                         this.font.draw(renderer.getContext(), "PRESS F1-F4 TO BUY SKIP", this.pos.x, this.pos.y);
                         this.font.draw(renderer.getContext(), "CURRENT EXP: " + game.data.exp.toString(), this.pos.x + 100, this.pos.y + 50);

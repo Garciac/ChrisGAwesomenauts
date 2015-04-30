@@ -1,3 +1,4 @@
+//Settings for spear 
 game.SpearThrow = me.Entity.extend({
     init: function(x, y, settings, facing) {
         this._super(me.Entity, 'init', [x, y, {
@@ -17,6 +18,7 @@ game.SpearThrow = me.Entity.extend({
         this.facing = facing
     },
     
+    //settings for directions the spear can go
     update: function(delta) {
         if(this.facing === "left"){
         this.body.vel.x -= this.body.accel.x * me.timer.tick;

@@ -1,4 +1,5 @@
- game.LoadProfile = me.ScreenObject.extend({
+//settings for loading a profile
+game.LoadProfile = me.ScreenObject.extend({
 	/**	
 	 *  action to perform on state change
 	 */
@@ -13,7 +14,7 @@
                 me.input.unbindKey(me.input.KEY.E);
                 me.input.unbindKey(me.input.KEY.W);
                 me.input.unbindKey(me.input.KEY.A); 
-                
+                //Fonts and size for "ENTER YOUR USERNAME AND PASSWORD"
                 me.game.world.addChild(new(me.Renderable.extend({
                     init: function(){
                     this._super(me.Renderable, 'init', [10, 10, 300, 50]);
