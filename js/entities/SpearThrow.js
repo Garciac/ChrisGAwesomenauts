@@ -13,20 +13,19 @@ game.SpearThrow = me.Entity.extend({
             }]);
         this.alwaysUpdate = true;
         this.body.setVelocity(8, 0);
-        this.attack = game.data.ability3*3;
+        this.attack = game.data.ability3 * 3;
         this.type = "spear";
         this.facing = facing
     },
-    
     //settings for directions the spear can go
     update: function(delta) {
-        if(this.facing === "left"){
-        this.body.vel.x -= this.body.accel.x * me.timer.tick;
-    }else{
-        this.body.vel.x += this.body.accel.x * me.timer.tick;
-    }
-    
-     me.collision.check(this, true, this.collideHandler.bind(this), true);
+        if (this.facing === "left") {
+            this.body.vel.x -= this.body.accel.x * me.timer.tick;
+        } else {
+            this.body.vel.x += this.body.accel.x * me.timer.tick;
+        }
+
+        me.collision.check(this, true, this.collideHandler.bind(this), true);
 
 
         this.body.update(delta);
@@ -34,9 +33,8 @@ game.SpearThrow = me.Entity.extend({
         this._super(me.Entity, "update", [delta]);
         return true;
     },
-   
     collideHandler: function(response) {
-        if (response.b.type === 'EnemyBase' || response.b.type==='EnemyCreep') {
+        if (response.b.type === 'EnemyBase' || response.b.type === 'EnemyCreep') {
             response.b.loseHealth(this.attack);
             me.game.world.removeChild(this);
         }

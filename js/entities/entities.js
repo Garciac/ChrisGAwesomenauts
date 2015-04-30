@@ -12,7 +12,6 @@ game.PlayerEntity = me.Entity.extend({
 
         this.renderable.setCurrentAnimation("idle");
     },
-    
     //settings for player
     setSuper: function(x, y) {
         this._super(me.Entity, 'init', [x, y, {
@@ -26,34 +25,29 @@ game.PlayerEntity = me.Entity.extend({
                 }
             }]);
     },
-    
     setPlayerTimers: function() {
         this.now = new Date().getTime();
         this.lastHit = this.now;
         this.lastSpear = this.now;
         this.lastAttack = new Date().getTime(); //Haven't used this  
     },
-    
     setAttributes: function() {
         this.health = game.data.playerHealth;
         this.body.setVelocity(game.data.playerMoveSpeed, 20);
         this.attack = game.data.playerAttack;
     },
-    
     setFlags: function() {
         //Keeps track down of which direction your character is going
         this.facing = "right";
         this.dead = false;
         this.attacking = false;
     },
-    
     addAnimation: function() {
         this.renderable.addAnimation("idle", [78]);
         this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
         this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
 
     },
-    
     update: function(delta) {
         this.now = new Date().getTime();
         this.dead = this.checkIfDead();
@@ -65,7 +59,6 @@ game.PlayerEntity = me.Entity.extend({
         this._super(me.Entity, "update", [delta]);
         return true;
     },
-    
     checkIfDead: function() {
         if (this.health <= 0) {
             return true;
@@ -83,12 +76,11 @@ game.PlayerEntity = me.Entity.extend({
         }
 
         if (me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
-           this.jump();
+            this.jump();
         }
-        
+
         this.attack = me.input.isKeyPressed("attack");
     },
-    
     moveRight: function() {
         //adds to the position on my x by velocity defined above in 
         //setVelocity() and multiplying it by me.timer.tick.
@@ -97,40 +89,38 @@ game.PlayerEntity = me.Entity.extend({
         this.facing = "right";
         this.flipX(true);
     },
-    
     moveLeft: function() {
         this.facing = "left";
-        this.body.vel.x -=this.body.accel.x * me.timer.tick;
+        this.body.vel.x -= this.body.accel.x * me.timer.tick;
         this.flipX(false);
     },
-    
-    jump: function(){
+    jump: function() {
         this.body.jumping = true;
-        this.body.vel.y -=this.body.accel.y * me.timer.tick;
+        this.body.vel.y -= this.body.accel.y * me.timer.tick;
     },
     //keys for options the character can do
-    checkAbilityKeys: function(){
-       if(me.input.isKeyPressed("skill1")){
-           //this.speedBurst();
-       }else if(me.input.isKeyPressed("skill2")){
-           //this.eatCreep();
-       }
-       else if(me.input.isKeyPressed("skill3")){
-           this.throwSpear();
-       }
+    checkAbilityKeys: function() {
+        if (me.input.isKeyPressed("skill1")) {
+            //this.speedBurst();
+        } else if (me.input.isKeyPressed("skill2")) {
+            //this.eatCreep();
+        }
+        else if (me.input.isKeyPressed("skill3")) {
+            this.throwSpear();
+        }
     },
     //setting when the character throws his spear
-    throwSpear: function(){
-        if((this.now-this.lastSpear) >= game.data.spearTimer*1000 && game.data.ability3 > 0){
-        this.lastSpear = this.now;
-        var spear = me.pool.pull("spear", this.pos.x, this.pos.y, {}, this.facing);
-        me.game.world.addChild(spear, 10);
-    }
-        },
+    throwSpear: function() {
+        if ((this.now - this.lastSpear) >= game.data.spearTimer * 1000 && game.data.ability3 > 0) {
+            this.lastSpear = this.now;
+            var spear = me.pool.pull("spear", this.pos.x, this.pos.y, {}, this.facing);
+            me.game.world.addChild(spear, 10);
+        }
+    },
     // animations of the characters actions
-    setAnimation: function(){
+    setAnimation: function() {
         if (this.attacking) {
-            if (!this.renderable.isCurrentAnimation("attack")){
+            if (!this.renderable.isCurrentAnimation("attack")) {
                 //Sets the current to attack and once that is over
                 //goes back to the idle animation
                 this.renderable.setCurrentAnimation("attack", "idle");
@@ -152,77 +142,73 @@ game.PlayerEntity = me.Entity.extend({
     loseHealth: function(damage) {
         this.health = this.health - damage;
     },
-    
     collideHandler: function(response) {
         if (response.b.type === 'EnemyBaseEntity') {
-           this.collideWithEnemyBase(response);
+            this.collideWithEnemyBase(response);
         } else if (response.b.type === 'EnemyCreep') {
-           this.collideWithEnemyCreep(response);
+            this.collideWithEnemyCreep(response);
         }
     },
-    
-    collideWithEnemyBase: function(response){
-    var ydif = this.pos.y - response.b.pos.y;
-            var xdif = this.pos.x - response.b.pos.x;
+    collideWithEnemyBase: function(response) {
+        var ydif = this.pos.y - response.b.pos.y;
+        var xdif = this.pos.x - response.b.pos.x;
 
-            if (xdif > -35 && this.facing === 'right' && (xdif < 0)) {
+        if (xdif > -35 && this.facing === 'right' && (xdif < 0)) {
+            this.body.vel.x = 0;
+        }
+        else if (xdif < 70 && this.facing === 'left' && (xdif > 0)) {
+            this.body.vel.x = 0;
+        } else if (ydif < -40 && xdif < 70 && xdif > -35) {
+            this.body.falling = false;
+            this.body.vel.y = -1;
+        }
+        if (this.renderable.isCurrentAnimation("attack") && this.new - this.lastHit >= game.data.playerAttackTimer) {
+            this.lastHit = this.now;
+            response.b.loseHealth(game.data.playerAttack);
+        }
+    },
+    collideWithEnemyCreep: function(response) {
+        var xdif = this.pos.x - response.b.pos.x;
+        var ydif = this.pos.y - response.b.pos.y;
+
+        this.stopMovement(xdif);
+
+        if (this.checkAttack(xdif, ydif)) {
+            this.hitCreep(response);
+        }
+        ;
+
+    },
+    stopMovement: function(xdif) {
+        if (xdif > 0) {
+            if (this.facing === "left") {
                 this.body.vel.x = 0;
             }
-            else if (xdif < 70 && this.facing === 'left' && (xdif > 0)) {
+        } else {
+            if (this.facing === "right") {
                 this.body.vel.x = 0;
-            } else if (ydif < -40 && xdif < 70 && xdif > -35) {
-                this.body.falling = false;
-                this.body.vel.y = -1;
-            } 
-            if (this.renderable.isCurrentAnimation("attack") && this.new - this.lastHit >= game.data.playerAttackTimer) {
-                this.lastHit = this.now;
-                response.b.loseHealth(game.data.playerAttack);
             }
+        }
     },
-    
-    collideWithEnemyCreep: function(response){
-            var xdif = this.pos.x - response.b.pos.x;
-            var ydif = this.pos.y - response.b.pos.y;
-
-            this.stopMovement(xdif);
-        
-            if(this.checkAttack(xdif, ydif)){
-               this.hitCreep(response);
-            };
-            
-    },
-    
-    stopMovement: function(xdif){
-                if (xdif > 0){
-                if (this.facing === "left") {
-                    this.body.vel.x = 0;
-                }
-            } else {
-                if (this.facing === "right") {
-                    this.body.vel.x = 0;
-                }
-            }
-        },
-        
-    checkAttack: function(xdif, ydif){
+    checkAttack: function(xdif, ydif) {
         if (this.renderable.isCurrentAnimation("attack") && this.now - this.lastHit >= game.data.playerAttackTimer
-                    && (Math.abs(ydif) <= 40 &&
-                            ((xdif > 0) & this.facing === "left") || ((xdif < 0) && this.facing === "right"))
-                    ) {
-                this.lastHit = this.now;
-                //if the creeps health is less than our attack, execute code in if statement
-                return true;
+                && (Math.abs(ydif) <= 40 &&
+                        ((xdif > 0) & this.facing === "left") || ((xdif < 0) && this.facing === "right"))
+                ) {
+            this.lastHit = this.now;
+            //if the creeps health is less than our attack, execute code in if statement
+            return true;
         }
         return false;
     },
     //setting for points when you kill a creep
-    hitCreep: function(response){
-         if (response.b.health <= game.data.playerAttack) {
-                //adds one gold for a creep kill
-                game.data.gold += 1;
-                console.log("Current gold: " + game.data.gold);
-            }
+    hitCreep: function(response) {
+        if (response.b.health <= game.data.playerAttack) {
+            //adds one gold for a creep kill
+            game.data.gold += 1;
+            console.log("Current gold: " + game.data.gold);
+        }
 
-            response.b.loseHealth(game.data.playerAttack);
-    } 
+        response.b.loseHealth(game.data.playerAttack);
+    }
 });

@@ -43,9 +43,9 @@ game.TitleScreen = me.ScreenObject.extend({
                 me.input.releasePointerEvent('pointerdown', this);
                 me.input.releasePointerEvent('pointerdown', game.data.option1);
                 me.state.change(me.state.LOAD);
-            }        
+            }
         }));
-        
+
         me.game.world.addChild(game.data.option2);
 
     },
