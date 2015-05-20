@@ -26,7 +26,7 @@ game.ExperienceManager = Object.extend({
 
 
         // when you save your game 
-        $ajax({
+        $.ajax({
             type: "POST",
             url: "php/controller/save-user.php",
             data: {

@@ -1,10 +1,8 @@
 <?php
-
 //required statement
 require_once(__DIR__ . "/../model/config.php");
 
 //email, username, password, salt, and Password settings
-
 $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_STRING);
 $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
 
@@ -12,8 +10,9 @@ $salt = "$5$" . "rounds=5000$" . uniqid(mt_rand(), true) . "$";
 
 $hashedPassword = crypt($password, $salt);
 
+$query1 = $SESSION["connection"]-> query("SELECT FROM users WHERE USERNAME='$username'");
+
 $query = $_SESSION["connection"]->query("INSERT INTO users SET "
-        . "email = '',"
         . "username = '$username',"
         . "password = '$hashedPassword',"
         . "salt = '$salt',"
@@ -31,4 +30,4 @@ if ($query) {
     echo "true";
 } else {
     echo "<p>" . $_SESSION["connection"]->error . "</p>";
-}
+} 
